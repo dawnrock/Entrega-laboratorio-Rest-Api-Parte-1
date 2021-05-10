@@ -3,16 +3,18 @@ import { generatePath } from 'react-router';
 interface SwitchRoutes {
   root: string;
   characterCollection: string;
+  createCharacter: string,
   editCharacter: string;
 }
 
 export const switchRoutes: SwitchRoutes = {
   root: '/',
   characterCollection: '/characterList',
+  createCharacter: './characterList/create',
   editCharacter: '/characterList/:id',
 };
 
-type NavigationFunction = (id: number) => string;
+type NavigationFunction = (id: string) => string;
 
 interface LinkRoutes extends Omit<SwitchRoutes, 'editCharacter'> {
   editCharacter: NavigationFunction;

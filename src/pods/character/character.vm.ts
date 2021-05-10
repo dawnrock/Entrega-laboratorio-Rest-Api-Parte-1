@@ -1,6 +1,7 @@
 export interface CharacterEntityVM {
-  id: number;
+  id: string;
   image: string;
+  type:string;
   name: string;
   episode: string[];
   species: string;
@@ -11,9 +12,10 @@ export interface CharacterEntityVM {
 }
 
 export const createEmptyCharacter = (): CharacterEntityVM => ({
-  id: -1,
+  id: '',
   name: '',
   image: '',
+  type:'',
   episode: [],
   species: '',
   created: '',

@@ -13,11 +13,11 @@ export const CharacterCollectionContainer = () => {
     loadCharacterCollection();
   }, []);
 
-  const handleEdit = (id: number) => {
+  const handleEdit = (id: string) => {
     history.push(linkRoutes.editCharacter(id));
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     await deleteCharacter(id);
     loadCharacterCollection();
   };

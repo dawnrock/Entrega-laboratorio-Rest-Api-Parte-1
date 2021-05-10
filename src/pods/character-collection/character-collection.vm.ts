@@ -1,5 +1,5 @@
 export interface CharacterCollectionEntityVm {
-  id: number;
+  id: string;
   image: string;
   name: string;
   episode: string[],

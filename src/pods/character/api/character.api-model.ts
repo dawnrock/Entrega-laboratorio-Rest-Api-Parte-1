@@ -1,5 +1,5 @@
 export interface CharacterEntity {
-  id: number;
+  id: string;
   type: string;
   name: string;
   created: string;

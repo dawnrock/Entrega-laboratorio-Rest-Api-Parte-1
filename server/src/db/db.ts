@@ -1,34 +1,34 @@
 import crypto from 'crypto';
-import { createDefaultHotel, mockCities, mockHotels } from './mock-data';
-import { Hotel, HotelEdit, City } from './models';
+import { createDefaultCharacter, mockCharacterList, mockLocations } from './mock-data';
+import { Character, CharacterEdit, Location } from './models';
 
-let hotels = [...mockHotels];
-let cities = [...mockCities];
+let characters = [...mockCharacterList];
+let locations = [...mockLocations];
 
-export const getHotelList = async (): Promise<Hotel[]> => hotels;
+export const getCharacterList = async (): Promise<Character[]> => characters;
 
-export const getHotel = async (id: string): Promise<Hotel> =>
-  hotels.find((h) => h.id === id);
+export const getCharacter = async (id: string): Promise<Character> =>
+characters.find((h) => h.id === id);
 
-export const insertHotel = async (hotelEdit: HotelEdit) => {
+export const insertCharacter = async (characterEdit: CharacterEdit) => {
   const newId = crypto.randomBytes(16).toString('hex');
-  hotels = [
-    ...hotels,
+  characters = [
+    ...characters,
     {
-      ...createDefaultHotel(),
-      ...hotelEdit,
+      ...createDefaultCharacter(),
+      ...characterEdit,
       id: newId,
     },
   ];
   return newId;
 };
 
-export const updateHotel = async (hotelEdit: HotelEdit): Promise<boolean> => {
-  hotels = hotels.map((h) =>
-    h.id === hotelEdit.id
+export const updateCharacter = async (characterEdit: CharacterEdit): Promise<boolean> => {
+  characters = characters.map((h) =>
+    h.id === characterEdit.id
       ? {
           ...h,
-          ...hotelEdit,
+          ...characterEdit,
         }
       : h
   );
@@ -36,9 +36,9 @@ export const updateHotel = async (hotelEdit: HotelEdit): Promise<boolean> => {
   return true;
 };
 
-export const deleteHotel = async (id: string): Promise<boolean> => {
-  hotels = hotels.filter((h) => h.id !== id);
+export const deleteCharacter = async (id: string): Promise<boolean> => {
+  characters = characters.filter((h) => h.id !== id);
   return true;
 };
 
-export const getCities = async (): Promise<City[]> => cities;
+export const getLocations = async (): Promise<Location[]> => locations;

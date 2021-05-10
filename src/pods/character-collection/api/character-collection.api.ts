@@ -1,20 +1,43 @@
 import { CharacterCollectionEntityApi } from './character-collection.api-model';
+import { gql } from 'graphql-request';
+import { graphQLClient } from 'core/api';
 
-import Axios from 'axios';
+interface GetCharacterCollectionResponse {
+  characters: CharacterCollectionEntityApi[];
+}
 
-const collectionUrl = '/api/characters';
+interface DeleteCharacterResponse {
+  deleteCharacter: boolean;
+}
 
 export const getCharacterCollection = async (): Promise<
-CharacterCollectionEntityApi[]
+  CharacterCollectionEntityApi[]
 > => {
-  const { data } = await Axios.get<CharacterCollectionEntityApi[]>(collectionUrl);
-  return data;
+  const query = gql`
+    query {
+      characters {
+        id
+        name
+        location
+        species
+        thumbNailUrl
+        bestSentences
+      }
+    }
+  `;
+  const {
+    characters,
+  } = await graphQLClient.request<GetCharacterCollectionResponse>(query);
+  return characters;
 };
 
+export const deleteCharacter = async (id: string): Promise<boolean> => {
+  const query = gql`
+  mutation {
+      deleteCharacter(id: "${id}")
+    }
+  `;
 
-export const deleteCharacter = async (id: number): Promise<boolean> => {
-
-  await Axios.delete(`${collectionUrl}/${id}`)
-  return true;
-
+  const {deleteCharacter} = await graphQLClient.request<DeleteCharacterResponse>(query);
+  return deleteCharacter;
 };
